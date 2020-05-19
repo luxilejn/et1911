@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<!-- 配置处理器映射器 -->
+	<!-- SimpleUrlHandlerMapping -->
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<!-- key:就是url，value：bean的id属性值 -->
+				<prop key="/hello">helloController</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 配置处理器适配器 -->
+	<!-- SimpleControllerHandlerAdapter -->
+	<bean
+		class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+
+	<!-- 配置视图解析器 -->
+	<!-- InternalResourceViewResolver -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 两个合起来表示页面位置在src/main/webapp/pages/返回的字符串.jsp -->
+		<property name="prefix" value="/pages/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 配置自己开发的处理器（控制器） -->
+	<bean id="helloController"
+		class="com.etoak.controller.HelloController" />
+
+</beans>
