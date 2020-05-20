@@ -12,9 +12,12 @@
 	
 	<!-- 配置注解扫描器 -->
 	<context:component-scan base-package="com.etoak">
-		<!-- 表示只扫描@Controller注解 -->
+		<!-- 表示扫描@Controller注解、RestController注解 -->
 		<context:include-filter type="annotation" 
 		expression="org.springframework.stereotype.Controller" />
+		
+		<context:include-filter type="annotation" 
+		expression="org.springframework.web.bind.annotation.RestController"/>
 	</context:component-scan>
 	
 	<!-- 开启spring mvc配置 -->
@@ -44,7 +47,7 @@
 	<!-- location属性：定义静态资源位置 -->
 	<!-- mapping属性：定义静态访问url，可以使用通配符，一个*表示只能访问一层目录，两个*表示能访问所有层级 -->
 	<mvc:resources location="classpath:/static/" 
-		mapping="/**" />
+		mapping="/s/**" />
 	<!-- ====spring mvc的静态资源处理方式==== -->
 	
 	<!-- 视图解析器InternalResourceViewResolver -->
