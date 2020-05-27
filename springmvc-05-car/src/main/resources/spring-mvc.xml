@@ -12,20 +12,20 @@
 
 	<!-- 1. 注解扫描 -->
 	<context:component-scan base-package="com.etoak">
-		
+
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 		<context:include-filter type="annotation"
 			expression="org.springframework.web.bind.annotation.RestController" />
-		<context:include-filter type="annotation" 
-			expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
-			
-			
+		<context:include-filter type="annotation"
+			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+
+
 		<!-- 排除@Service、@Repository -->
-		<context:exclude-filter type="annotation" 
-		expression="org.springframework.stereotype.Service"/>
-		<context:exclude-filter type="annotation" 
-		expression="org.springframework.stereotype.Repository"/>	
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Repository" />
 	</context:component-scan>
 
 	<!-- 2. 开启mvc配置 -->
@@ -33,9 +33,9 @@
 
 	<!-- 3. 静态文件交由Servlet容器处理 -->
 	<mvc:default-servlet-handler />
-	
+
 	<!-- 定义图片的访问方式 -->
-	<mvc:resources location="file:d:/upload/" 
+	<mvc:resources location="file:d:/upload/"
 		mapping="/pic/**" />
 
 	<!-- 整合Thymeleaf -->
@@ -60,10 +60,47 @@
 	</bean>
 
 	<!-- 文件上传解析器, id必须是multipartResolver -->
-	<bean id="multipartResolver" 
-	  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- 文件大小限制2MB -->
 		<property name="maxUploadSize" value="2097152" />
 	</bean>
+
+	<!-- 
+		@RequestMapping("/")
+		public String index() {
+			return "index"
+		}
+	 -->
+	<mvc:view-controller path="/" view-name="index" />
+	<mvc:view-controller path="/user/toLogin" 
+		view-name="login" />
+
+	<!-- <mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/test2" />
+			<bean class="com.etoak.interceptor.FirstInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.etoak.interceptor.SecondInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors> -->
+
+	<!-- 配置拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- 配置需要拦截的地址，/**表示拦截所有层级的请求 -->
+			<mvc:mapping path="/**" />
+			<!-- 配置不需要拦截请求地址 -->
+			<mvc:exclude-mapping path="/static/**"/>
+			<mvc:exclude-mapping path="/code"/>
+			<mvc:exclude-mapping path="/user/toLogin" />
+			<mvc:exclude-mapping path="/user/login" />
+			<!-- 配置拦截器 -->
+			<bean class="com.etoak.interceptor.LoginInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 </beans>
