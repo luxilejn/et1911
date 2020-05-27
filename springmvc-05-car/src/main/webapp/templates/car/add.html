@@ -13,6 +13,10 @@
 </style>
 </head>
 <body>
+<div>
+	<span th:text="${paramError}"></span>
+</div>
+
 <div id="form">
 	<form id="addForm" 
 		th:action="@{/car/add}" 
@@ -141,7 +145,7 @@
 		et1911.queryGearbox();
 		
 		// 调用校验方法
-		et1911.validateForm();
+		// et1911.validateForm();
 	})
 	
 	let et1911 = {
