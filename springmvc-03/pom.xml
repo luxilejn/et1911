@@ -11,8 +11,6 @@
 	</parent>
 	<artifactId>springmvc-03</artifactId>
 	<packaging>war</packaging>
-	<name>springmvc-03 Maven Webapp</name>
-	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>
